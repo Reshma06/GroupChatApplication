@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+</head>
+<body>
+    <form action="/chat" method="POST" id="groupChat">
+        <p id="del">No chat exists</p>
+        <span id="add"></span>
+        <input type="text" name="msg" id="msg">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        document.getElementById("groupChat").addEventListener('submit', function(event){
+            event.preventDefault();
+            const msg = document.getElementById("msg").value.trim();
+            const parent = document.getElementById("add");
+            const toDel = document.getElementById("del");
+            localStorage.setItem('exists', toDel);
+            if(toDel){
+                toDel.remove();    
+            }
+            parent.innerHTML +=`<%= uname %> : `;
+            parent.innerHTML += msg;
+            parent.innerHTML += `<br><br>`;
+            document.getElementById("msg").value = " ";
+            localStorage.setItem('chatMessage', parent.innerHTML);
+        });
+
+        window.addEventListener('load', function(){
+            const parent = document.getElementById("add");
+            const parent1 = document.getElementById("del");
+            const storedMessage = localStorage.getItem('chatMessage');
+            if (storedMessage) {
+            parent.innerHTML = storedMessage;
+            if(parent1){
+                localStorage.removeItem('exists');
+                parent1.remove();
+            }
+        }
+        })
+    </script>
+</body>
+</html>

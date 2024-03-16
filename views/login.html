@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <form action="/login" method="POST" id="groupChat">
+            <input type="text" name="uname" id="uname">
+            <br><br>
+            <input type="submit" value="Login">
+        </form>
+        <script>
+            document.getElementById("groupChat").addEventListener('submit', function(event){
+                const name = document.getElementById("uname").value;
+                localStorage.setItem("username", name);
+            });
+        </script>
+    </body>
+</html>
